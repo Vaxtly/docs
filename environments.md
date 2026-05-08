@@ -29,12 +29,35 @@ Use <code v-pre>{{variableName}}</code> anywhere in your request — URL, header
 
 Variables are highlighted inline wherever they appear: **green** for resolved variables, **red** for unresolved ones. Hover to see the resolved value and its source (e.g., "Env: Production" or "Collection").
 
+### Parent / Child Environments
+
+Environments can inherit from a parent. A common shape is one root env that holds shared values, with child envs (e.g. `local`, `prod`) that override only what's specific to them.
+
+```
+Myapp           ← root: holds shared values
+├── local      ← inherits from Myapp, overrides apiBase
+└── prod       ← inherits from Myapp, overrides apiBase + token
+```
+
+Pick a parent in the env editor's **"Inherits from"** dropdown. The sidebar shows children indented under their parent. Both root and child envs are independently selectable as the active environment.
+
+**How values resolve.** When a child is active, Vaxtly merges the parent's enabled variables first, then the child's — so child entries override the parent on a per-key basis, while parent-only keys still resolve. Disabled child entries are ignored (the parent value applies); to suppress an inherited key, override it with an empty string instead.
+
+**Override action.** A child's editor shows an **"Inherited from {Parent}"** table listing every parent variable, its source, and an **Override** button that copies the row into the child's own variables for editing.
+
+**Used by.** Root envs show their children as **"Used by"** pills at the top of the editor; click one to jump straight into that child's tab.
+
+**Limits.** Inheritance is one level deep — a child cannot itself become a parent. Parent and child must live in the same workspace. Deleting a parent **orphans its children** (they remain as their own root envs with their own values intact).
+
+**Vault-synced parents.** Activating a child whose parent is vault-synced fetches both the parent's and the child's secrets so inherited values resolve correctly. Per-env failures are surfaced individually so you can tell which side of the chain failed to load.
+
 ### Resolution Order
 
 When the same variable name exists in multiple places, the highest-priority source wins:
 
 1. **Collection variables** (set by post-response scripts or manually) — highest priority
-2. **Active environment variables** — base layer
+2. **Child environment variables** — when a child is active
+3. **Parent environment variables** — inherited base layer
 
 ### Nested References
 
