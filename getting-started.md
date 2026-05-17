@@ -28,3 +28,10 @@ For already-saved requests, <kbd>Cmd+S</kbd> writes changes to the database. If 
 
 > [!TIP]
 > **Tip:** Use <kbd>Cmd+B</kbd> to toggle the sidebar for more screen space while working.
+
+### Appearance
+
+Open Settings (gear icon, top-right) → **General** → **Appearance** to adjust how Vaxtly looks:
+
+- **Theme** — choose **Light**, **Dark**, or **System** (follows your OS preference). Theme changes apply instantly across the app, including code editors.
+- **Text size** — choose **Small**, **Medium** (default), or **Large**. Each step shifts the interface font scale by one point and affects everything: sidebar, tabs, request panes, modals, settings, and the code editor.
