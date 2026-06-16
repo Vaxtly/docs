@@ -37,6 +37,25 @@ Since Vaxtly doesn't store response schemas, all operations include a default `2
 
 The file is saved as `openapi-{collection}-{date}.yaml`.
 
+### Export — Postman
+
+Right-click a collection in the sidebar and choose **Export as Postman Collection** to generate a [Postman Collection v2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json) JSON file you can import directly into Postman.
+
+Vaxtly maps your collection data to the Postman schema:
+
+- **Collection** name and description → `info.name` and `info.description`
+- **Folders** → nested item groups (the full hierarchy is preserved)
+- **Request** method, URL, and name → request items
+- **Query params** and **headers** → `url.query` and `header` (disabled entries keep their `disabled` flag)
+- **Body** (JSON, XML, raw, GraphQL, form-data, URL-encoded) → `body` with the matching mode
+- **Auth** (Bearer, Basic, API Key, OAuth 2.0) at the request, folder, and collection level → Postman `auth` blocks (auth set to *Inherit* is left for Postman to inherit from the parent)
+- **Collection variables** → `variable`
+
+> [!WARNING]
+> Unlike the OpenAPI export, the Postman export includes auth credentials (tokens, passwords, keys) in plaintext — the same as the native Vaxtly export — so the resulting file can be used immediately. Handle and share it accordingly.
+
+Pre-request scripts and assertions are not translated to Postman events. The file is saved as `postman-collection-{collection}-{date}.json`.
+
 ### Import — OpenAPI
 
 Import an [OpenAPI 3.x](https://spec.openapis.org/oas/v3.0.3) or Swagger 2.x specification file (JSON or YAML) to create a new collection.

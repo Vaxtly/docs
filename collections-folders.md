@@ -12,7 +12,7 @@ Right-click in the sidebar to access the context menu:
 - **Enable/Disable Sync** — toggle Git remote sync for this collection
 - **Push to Remote** / **Pull from Remote** — manual sync operations (when sync is enabled)
 - **Run Collection** — execute all requests in the collection sequentially (see below)
-- **Export** — download the collection as a JSON file
+- **Export** / **Export as OpenAPI** / **Export as Postman Collection** — download the collection in the Vaxtly, OpenAPI, or Postman format (see [Data Management](./data-management.md))
 - **Delete** — permanently remove the collection and all its contents
 
 ### Collection Runner
