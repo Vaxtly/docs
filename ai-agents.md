@@ -10,6 +10,9 @@ The Vaxtly app exposes a **local-only socket** (Unix domain socket on macOS/Linu
 
 The CLI is bundled with the app. After installation, you symlink it onto your `$PATH` once.
 
+> [!NOTE]
+> Changes your agent makes through the CLI or MCP appear in the running app right away — the affected collection, folder, request, or environment refreshes live. No restart or manual reload needed.
+
 ## Quick start
 
 > [!NOTE]
