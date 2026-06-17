@@ -77,6 +77,14 @@ vaxtly mcp
 
 **Idempotency.** Every upsert is keyed on `--external-key`. Re-running with the same key updates the existing entity; fields you don't pass are preserved. To modify an existing entry, `get` it first to see current state, then upsert only what changes.
 
+**Updating something you created in the UI.** Entities made by hand in Vaxtly have no `external_key` yet, so upserting with a fresh key would create a *duplicate*. Instead, adopt the existing one: run the matching `list` command to get its `id` (a UUID), then pass `--id <uuid>` alongside the `--external-key` you want to assign it. This claims the existing entity under that key — no duplicate. The `--id` flag works on `upsert collection`, `folder`, `request`, and `env`; after adopting once, just use the external_key from then on.
+
+```sh
+# "Update the collection I made in the UI" — adopt it under a stable key
+vaxtly list collections                               # find its id
+vaxtly upsert collection --id <uuid> --external-key acme --name "Acme API"
+```
+
 **Exit codes.** `0` ok, `1` generic, `2` validation/not-found, `3` auth failed, `4` Vaxtly not running, `5` conflict. Stable surface — you can branch on these in scripts.
 
 ## MCP setup (Claude Desktop, Cursor, etc.)
@@ -97,6 +105,12 @@ If your agent host supports MCP, point it at `vaxtly mcp`. This is generally the
 ```
 
 Restart Claude Desktop. The 15 Vaxtly tools (`vaxtly_ping`, `vaxtly_list_*`, `vaxtly_get_*`, `vaxtly_upsert_*`) will appear in the next conversation.
+
+**Claude Code** — register it once at user scope (available in every project) with a single command:
+
+```sh
+claude mcp add --scope user vaxtly -- vaxtly mcp
+```
 
 **Cursor** and other MCP-capable clients use the same config shape — usually under an `mcpServers` key in their config file.
 
