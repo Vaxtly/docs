@@ -4,7 +4,7 @@ The request builder is the main area for composing HTTP requests. It has six sub
 
 ### URL Bar
 
-At the top is the URL input with a **method selector** combobox. Preset methods: GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS, and LIST — each color-coded for quick identification. You can also type any custom method (e.g. PURGE, LOCK, PROPFIND) directly into the selector and press <kbd>Enter</kbd>. Custom methods are uppercased automatically and shown in a neutral color.
+At the top is the URL input with a **method selector** combobox. Preset methods: GET, POST, PUT, PATCH, DELETE, QUERY, HEAD, OPTIONS, and LIST — each color-coded for quick identification. QUERY ([RFC 10008](https://www.rfc-editor.org/rfc/rfc10008)) is the safe, idempotent method that carries the query in the request body — use the Body tab just like you would with POST. You can also type any custom method (e.g. PURGE, LOCK, PROPFIND) directly into the selector and press <kbd>Enter</kbd>. Custom methods are uppercased automatically and shown in a neutral color.
 
 Environment variables (<code v-pre>{{variable}}</code>) in the URL are highlighted inline — green for resolved, red for unresolved. Hover over a highlighted variable to see its value and source.
 
